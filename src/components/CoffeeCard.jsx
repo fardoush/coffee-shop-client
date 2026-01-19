@@ -1,12 +1,14 @@
 import React from "react";
 import { IoEye } from "react-icons/io5";
 import { MdEdit, MdDelete } from "react-icons/md";
+import { Link } from "react-router";
 import Swal from "sweetalert2";
 
 const CoffeeCard = ({ coffee }) => {
   const { _id, photo, name, chef, price, quantity } = coffee;
 
   const handleDelete = (_id) => {
+    console.log(_id);
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -16,12 +18,22 @@ const CoffeeCard = ({ coffee }) => {
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
+        console.log(result.isConfirmed);
       if (result.isConfirmed) {
-        Swal.fire({
+        // start deleting the coffee 
+        fetch(`http://localhost:3000/coffees/${_id}`,{
+            method: 'DELETE'
+        })
+        .then((res) => res.json())
+        .then(data => {
+            console.log('After delete', data);
+             Swal.fire({
           title: "Deleted!",
-          text: "Your file has been deleted.",
+          text: "Your Coffee has been deleted.",
           icon: "success",
         });
+        })
+       
       }
     });
   };
@@ -51,12 +63,16 @@ const CoffeeCard = ({ coffee }) => {
 
       {/* Actions */}
       <div className="flex sm:flex-col gap-2">
-        <button className="btn btn-sm bg-[#D2B48C] hover:bg-[#c3a678] text-white border-0 shadow-none">
+        <Link to={`/coffee/${_id}`}> <button className="btn btn-sm bg-[#D2B48C] hover:bg-[#c3a678] text-white border-0 shadow-none">
           <IoEye size={18} />
-        </button>
-        <button className="btn btn-sm bg-[#3C393B] hover:bg-[#2f2c2d] text-white border-0 shadow-none">
+        </button></Link>
+       
+       <Link to={`/updateCoffee/${_id}`}>
+       <button className="btn btn-sm bg-[#3C393B] hover:bg-[#2f2c2d] text-white border-0 shadow-none">
           <MdEdit size={18} />
         </button>
+       </Link>
+        
         <button
           onClick={() => handleDelete(_id)}
           className="btn btn-sm bg-[#EA4744] hover:bg-[#d63d3a] text-white border-0 shadow-none"
