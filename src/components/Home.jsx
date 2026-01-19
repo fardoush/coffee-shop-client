@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLoaderData } from "react-router";
 import { GiCoffeeCup } from "react-icons/gi";
 import CoffeeCard from "./CoffeeCard";
 
 const Home = () => {
-  const coffees = useLoaderData();
-  console.log(coffees);
+  const initialcoffees = useLoaderData();
+  const [coffees, setCoffees] = useState(initialcoffees);
+  // console.log(coffees);
 
   return (
     <div>
@@ -20,7 +21,7 @@ const Home = () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
 {
-    coffees.map(coffee => <CoffeeCard key={coffee._id} coffee={coffee}> </CoffeeCard>)
+    coffees.map(coffee => <CoffeeCard key={coffee._id} coffees={coffees} setCoffees={setCoffees} coffee={coffee}> </CoffeeCard>)
 }
         </div>
       </div>
