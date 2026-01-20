@@ -6,6 +6,9 @@ import CoffeeCard from "./CoffeeCard";
 const Home = () => {
   const initialcoffees = useLoaderData();
   const [coffees, setCoffees] = useState(initialcoffees);
+
+// console.log("Loader data:", initialcoffees);
+// console.log("Is array:", Array.isArray(initialcoffees));
   // console.log(coffees);
 
   return (

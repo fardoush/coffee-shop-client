@@ -4,7 +4,7 @@ import { MdEdit, MdDelete } from "react-icons/md";
 import { Link } from "react-router";
 import Swal from "sweetalert2";
 
-const CoffeeCard = ({ coffee, coffees ,setCoffees }) => {
+const CoffeeCard = ({ coffee, coffees, setCoffees }) => {
   const { _id, photo, name, chef, price, quantity } = coffee;
 
   const handleDelete = (_id) => {
@@ -18,26 +18,25 @@ const CoffeeCard = ({ coffee, coffees ,setCoffees }) => {
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
-        console.log(result.isConfirmed);
+      console.log(result.isConfirmed);
       if (result.isConfirmed) {
-        // start deleting the coffee 
-        fetch(`http://localhost:3000/coffees/${_id}`,{
-            method: 'DELETE'
+        // start deleting the coffee
+        fetch(`http://localhost:3000/coffees/${_id}`, {
+          method: "DELETE",
         })
-        .then((res) => res.json())
-        .then(data => {
-            console.log('After delete', data);
-             Swal.fire({
-          title: "Deleted!",
-          text: "Your Coffee has been deleted.",
-          icon: "success",
-        });
+          .then((res) => res.json())
+          .then((data) => {
+            console.log("After delete", data);
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your Coffee has been deleted.",
+              icon: "success",
+            });
 
-        // remove the coffee from the state [delete id bade id dawa]
-        const remainingCoffees = coffees.filter(cof => cof._id !== _id);
-        setCoffees(remainingCoffees);
-        })
-       
+            // remove the coffee from the state [delete id bade id dawa]
+            const remainingCoffees = coffees.filter((cof) => cof._id !== _id);
+            setCoffees(remainingCoffees);
+          });
       }
     });
   };
@@ -67,16 +66,19 @@ const CoffeeCard = ({ coffee, coffees ,setCoffees }) => {
 
       {/* Actions */}
       <div className="flex sm:flex-col gap-2">
-        <Link to={`/coffee/${_id}`}> <button className="btn btn-sm bg-[#D2B48C] hover:bg-[#c3a678] text-white border-0 shadow-none">
-          <IoEye size={18} />
-        </button></Link>
-       
-       <Link to={`/updateCoffee/${_id}`}>
-       <button className="btn btn-sm bg-[#3C393B] hover:bg-[#2f2c2d] text-white border-0 shadow-none">
-          <MdEdit size={18} />
-        </button>
-       </Link>
-        
+        <Link to={`/coffee/${_id}`}>
+          {" "}
+          <button className="btn btn-sm bg-[#D2B48C] hover:bg-[#c3a678] text-white border-0 shadow-none">
+            <IoEye size={18} />
+          </button>
+        </Link>
+
+        <Link to={`/updateCoffee/${_id}`}>
+          <button className="btn btn-sm bg-[#3C393B] hover:bg-[#2f2c2d] text-white border-0 shadow-none">
+            <MdEdit size={18} />
+          </button>
+        </Link>
+
         <button
           onClick={() => handleDelete(_id)}
           className="btn btn-sm bg-[#EA4744] hover:bg-[#d63d3a] text-white border-0 shadow-none"

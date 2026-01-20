@@ -3,39 +3,38 @@ import { useLoaderData } from "react-router";
 import Swal from "sweetalert2";
 
 const UpdateCoffee = () => {
-      const {_id, name, chef, supplier, price, quantity, details, photo } =
-      useLoaderData();
+  const { _id, name, chef, supplier, price, quantity, details, photo } =
+    useLoaderData();
   const handleUpdateCoffee = (e) => {
-
     // const coffee = useLoaderData();
     e.preventDefault();
     const form = e.target;
     console.log(form);
     const formData = new FormData(form);
-    const updateCoffee = Object.fromEntries(formData.entries())
+    const updateCoffee = Object.fromEntries(formData.entries());
     console.log(updateCoffee);
 
-    // send updated coffee to the db 
-    fetch(`http://localhost:3000/coffees/${_id}`,{
-      method: 'PUT',
+    // send updated coffee to the db
+    fetch(`http://localhost:3000/coffees/${_id}`, {
+      method: "PUT",
       headers: {
-        'content-type': 'application/json'
+        "content-type": "application/json",
       },
-      body: JSON.stringify(updateCoffee)
+      body: JSON.stringify(updateCoffee),
     })
-    .then(res => res.json())
-    .then(data => {
-      console.log(data)
-      if(data.modifiedCount){
-        Swal.fire({
-  position: "center-center",
-  icon: "success",
-  title: "Coffee updated successfully",
-  showConfirmButton: false,
-  timer: 1500
-});
-      }
-    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.modifiedCount) {
+          Swal.fire({
+            position: "center-center",
+            icon: "success",
+            title: "Coffee updated successfully",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      });
   };
 
   return (
