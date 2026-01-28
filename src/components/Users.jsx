@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 const Users = () => {
   const initialUser = useLoaderData();
   const [users, setUsers] = useState(initialUser);
-  console.log(initialUser);
+  // console.log(initialUser);
 
   const handleUserDelete = (id) => {
     Swal.fire({
@@ -28,7 +28,7 @@ const Users = () => {
             if (data.deletedCount) {
               const remainingUsers = users.filter(user => user._id !== id);
               setUsers(remainingUsers);
-              console.log("After delete", data);
+              // console.log("After delete", data);
 
                 // TODO Delete user from firebase 
 
@@ -43,65 +43,115 @@ const Users = () => {
     });
   };
   return (
-    <div className=" mx-auto container lg:py-24 md:py-16 py-12">
-      <h2 className="text-center mb-6 text-4xl">Total User: {users.length}</h2>
-      <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
-        <table className="table">
-          {/* head */}
-          <thead>
-            <tr>
-              <th>No</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Phone</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {/* row 1 */}
-            {users.map((user, index) => (
-              <tr key={user._id}>
-                <th> {index + 1} </th>
-                <td>
-                  <div className="flex items-center gap-3">
-                    <div className="avatar">
-                      <div className="mask mask-squircle h-12 w-12">
-                        <img
-                          src={user.photo}
-                          alt="Avatar Tailwind CSS Component"
-                        />
-                      </div>
-                    </div>
-                    <div>
-                      <div className="font-bold">{user.name}</div>
-                      <div className="text-sm opacity-50">{user.address}</div>
-                    </div>
+    <div className="bg-[#1a1a1a]">
+      <div className="mx-auto lg:container w-full  md:px-10 px-5 py-10 sm:py-16 md:py-24 ">
+  
+  {/* Header */}
+  <div className="mb-8 text-center">
+    <h2 className="text-3xl md:text-4xl font-semibold text-[#E3B577]">
+      Users Management
+    </h2>
+    <p className="mt-2 text-[#C7B299]">
+      Total Users: <span className="font-semibold">{users.length}</span>
+    </p>
+  </div>
+
+  {/* Table Wrapper */}
+  <div
+    className="overflow-x-auto rounded-xl shadow-2xl
+    bg-[#2a2a2a] border border-[#E3B577]/30"
+  >
+    <table className="table w-full text-white">
+
+      {/* Table Head */}
+      <thead>
+        <tr className="text-[#C7B299] border-b border-[#E3B577]/20">
+          <th>No</th>
+          <th>User</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th className="text-center">Action</th>
+        </tr>
+      </thead>
+
+      {/* Table Body */}
+      <tbody>
+        {users.map((user, index) => (
+          <tr
+            key={user._id}
+            className="border-b border-[#E3B577]/10 hover:bg-[#1f1f1f] transition"
+          >
+            <th className="text-[#C7B299]">{index + 1}</th>
+
+            {/* User Info */}
+            <td>
+              <div className="flex items-center gap-4">
+                <div className="avatar">
+                  <div className="h-12 w-12 rounded-lg overflow-hidden border border-[#E3B577]/30">
+                    <img
+                      src={user.photo}
+                      alt={user.name}
+                      className="object-cover"
+                    />
                   </div>
-                </td>
-                <td>{user.email}</td>
-                <td>{user.phone}</td>
-                <th>
-                  <div className="join space-x-2">
-                    <button className="btn  bg-indigo-200 border-none rounded-none">
-                      <IoIosEye className="text-indigo-600" size={24} />
-                    </button>
-                    <button className="btn  bg-emerald-200 border-none rounded-none">
-                      <MdEdit className="text-emerald-600" size={24} />
-                    </button>
-                    <button
-                      onClick={() => handleUserDelete(user._id)}
-                      className="btn  bg-rose-200 border-none rounded-none"
-                    >
-                      <MdDelete className="text-rose-600" size={24} />
-                    </button>
+                </div>
+                <div>
+                  <div className="font-semibold text-white">
+                    {user.name}
                   </div>
-                </th>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+                  <div className="text-sm text-[#C7B299]">
+                    {user.address}
+                  </div>
+                </div>
+              </div>
+            </td>
+
+            <td className="text-[#C7B299]">{user.email}</td>
+            <td className="text-[#C7B299]">{user.phone}</td>
+
+            {/* Actions */}
+            <td>
+              <div className="flex justify-center gap-2">
+
+                {/* View */}
+                <button
+                  className="p-2 rounded-md 
+                  bg-[#E3B577]/20 hover:bg-[#E3B577]/40 
+                  transition"
+                >
+                  <IoIosEye className="text-[#E3B577]" size={22} />
+                </button>
+
+                {/* Edit */}
+                <button
+                  className="p-2 rounded-md 
+                  bg-emerald-500/20 hover:bg-emerald-500/40 
+                  transition"
+                >
+                  <MdEdit className="text-emerald-400" size={22} />
+                </button>
+
+                {/* Delete */}
+                <button
+                  onClick={() => handleUserDelete(user._id)}
+                  className="p-2 rounded-md 
+                  bg-rose-500/20 hover:bg-rose-500/40 
+                  transition"
+                >
+                  <MdDelete className="text-rose-400" size={22} />
+                </button>
+
+              </div>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+
+    </table>
+  </div>
+</div>
     </div>
+
   );
 };
 

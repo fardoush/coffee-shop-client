@@ -1,10 +1,11 @@
 import React, { use } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { toast, ToastContainer } from "react-toastify";
+import { Link } from "react-router";
 
 const SignUp = () => {
   const { createUser } = use(AuthContext);
-  console.log(createUser);
+  // console.log(createUser);
 
   const handleSignUp = (e) => {
     e.preventDefault();
@@ -22,7 +23,7 @@ const SignUp = () => {
 
     createUser(email, password)
       .then((result) => {
-        console.log(result.user);
+        // console.log(result.user);
         const userProfile = {
           email,
           ...restFormData,
@@ -40,7 +41,7 @@ const SignUp = () => {
         })
           .then((res) => res.json())
           .then((data) => {
-            console.log("After profile save", data);
+            // console.log("After profile save", data);
             if (data.insertedId) {
               toast.success("Your account is created.");
             }
@@ -52,67 +53,124 @@ const SignUp = () => {
   };
 
   return (
-    <div className="card bg-base-100 mx-auto max-w-md shrink-0 shadow-2xl">
-      <div className="card-body">
-        <h1 className="text-5xl font-bold text-center">Sign Up now!</h1>
+    <div className="lg:py-24 md:py-16 py-12 bg-[#1a1a1a]">
+  <div className="card mx-auto max-w-md w-full shadow-2xl bg-[#2a2a2a] border border-[#E3B577]/30 md:px-10 px-5">
+    <div className="card-body p-6 md:p-8">
+      
+      {/* Heading */}
+      <h1 className="text-3xl md:text-4xl font-bold text-center text-[#E3B577]">
+        Create Account
+      </h1>
+      <p className="text-center text-[#C7B299] text-sm mt-2">
+        Join our premium coffee experience ☕
+      </p>
 
-        <form onSubmit={handleSignUp} className="fieldset">
-          <label className="label">Name</label>
+      {/* Form */}
+      <form onSubmit={handleSignUp} className="space-y-4 mt-6">
+        
+        {/* Name */}
+        <div>
+          <label className="label text-[#C7B299]">Name</label>
           <input
             type="text"
             name="name"
-            className="input w-full"
-            placeholder="Name"
+            className="input w-full bg-transparent border-[#C7B299]/40 
+            focus:border-[#E3B577] focus:outline-none text-white"
+            placeholder="Your name"
           />
-          <label className="label">Email</label>
+        </div>
+
+        {/* Email */}
+        <div>
+          <label className="label text-[#C7B299]">Email</label>
           <input
-            type="text"
+            type="email"
             name="email"
-            className="input w-full"
-            placeholder="E-mail"
+            className="input w-full bg-transparent border-[#C7B299]/40 
+            focus:border-[#E3B577] focus:outline-none text-white"
+            placeholder="your@email.com"
           />
-          <label className="label">Phone</label>
+        </div>
+
+        {/* Phone */}
+        <div>
+          <label className="label text-[#C7B299]">Phone</label>
           <input
             type="tel"
             name="phone"
-            className="input w-full validator tabular-nums"
             required
-            placeholder="Phone"
-            pattern="[0-9]*"
-            minLength="10"
-            maxLength="10"
-            title="Must be 10 digits"
+            className="input w-full bg-transparent border-[#C7B299]/40 
+            focus:border-[#E3B577] focus:outline-none text-white"
+            placeholder="01XXXXXXXXX"
           />
-          <label className="label">Photo</label>
+        </div>
+
+        {/* Photo */}
+        <div>
+          <label className="label text-[#C7B299]">Photo URL</label>
           <input
             type="text"
             name="photo"
-            className="input w-full"
-            placeholder="Photo URL"
+            className="input w-full bg-transparent border-[#C7B299]/40 
+            focus:border-[#E3B577] focus:outline-none text-white"
+            placeholder="Profile photo link"
           />
-          <label className="label">Address</label>
+        </div>
+
+        {/* Address */}
+        <div>
+          <label className="label text-[#C7B299]">Address</label>
           <input
             type="text"
             name="address"
-            className="input w-full"
-            placeholder="Address"
+            className="input w-full bg-transparent border-[#C7B299]/40 
+            focus:border-[#E3B577] focus:outline-none text-white"
+            placeholder="Your address"
           />
-          <label className="label">Password</label>
-          <input
-            type="text"
-            name="password"
-            className="input w-full"
-            placeholder="Password"
-          />
+        </div>
 
-          <div>
-            <a className="link link-hover">Forgot password?</a>
-          </div>
-          <button className="btn btn-neutral mt-4">Login</button>
-        </form>
-        <ToastContainer />
-      </div>
+        {/* Password */}
+        <div>
+          <label className="label text-[#C7B299]">Password</label>
+          <input
+            type="password"
+            name="password"
+            className="input w-full bg-transparent border-[#C7B299]/40 
+            focus:border-[#E3B577] focus:outline-none text-white"
+            placeholder="••••••••"
+          />
+        </div>
+
+        {/* Forgot */}
+        {/* <div className="text-right">
+          <a className="text-sm text-[#E3B577] hover:underline">
+            Forgot password?
+          </a>
+        </div> */}
+
+        {/* Button */}
+        <button
+          className="btn w-full mt-4 bg-[#E3B577] text-[#331A15] hover:bg-[#d4a764] font-bold transition-all duration-300"
+        >
+          Sign Up
+        </button>
+          {/* Sign In Text Link */}
+        <p className="text-center text-sm text-[#C7B299] mt-3">
+          Already have an account?{" "}
+          <Link
+            to="/signin" 
+            className="text-[#E3B577] hover:underline font-semibold"
+          >
+            Sign In
+          </Link>
+        </p>
+      </form>
+
+      <ToastContainer />
     </div>
+  </div>
+</div>
+
   );
 };
 

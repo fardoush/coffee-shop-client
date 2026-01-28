@@ -8,7 +8,7 @@ const CoffeeCard = ({ coffee, coffees, setCoffees }) => {
   const { _id, photo, name, chef, price, quantity } = coffee;
 
   const handleDelete = (_id) => {
-    console.log(_id);
+    // console.log(_id);
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -18,7 +18,7 @@ const CoffeeCard = ({ coffee, coffees, setCoffees }) => {
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
-      console.log(result.isConfirmed);
+      // console.log(result.isConfirmed);
       if (result.isConfirmed) {
         // start deleting the coffee
         fetch(`http://localhost:3000/coffees/${_id}`, {
@@ -26,7 +26,7 @@ const CoffeeCard = ({ coffee, coffees, setCoffees }) => {
         })
           .then((res) => res.json())
           .then((data) => {
-            console.log("After delete", data);
+            // console.log("After delete", data);
             Swal.fire({
               title: "Deleted!",
               text: "Your Coffee has been deleted.",
@@ -42,24 +42,24 @@ const CoffeeCard = ({ coffee, coffees, setCoffees }) => {
   };
 
   return (
-    <div className="bg-[#F5F4F1] rounded-lg shadow-sm p-4 sm:p-6 flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
+    <div className="bg-[#1C1B18] rounded-lg shadow-sm p-4 sm:p-6 flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
       {/* Image */}
       <div className="w-28 h-36 flex-shrink-0">
         <img src={photo} alt={name} className="w-full h-full object-contain" />
       </div>
 
       {/* Content */}
-      <div className="flex-1 w-full text-center sm:text-left space-y-1">
-        <h2 className="text-lg font-semibold text-[#1B1A1A]">
+      <div className="flex-1 w-full text-center sm:text-left space-y-3">
+        <h5 className="text-lg font-semibold text-[#9C8B75]">
           Name: <span className="font-normal">{name}</span>
-        </h2>
-        <p className="text-sm text-gray-700">
+        </h5>
+        <p className="text-sm text-[#C7B299]">
           Chef: <span className="font-medium">{chef}</span>
         </p>
-        <p className="text-sm text-gray-700">
+        <p className="text-sm text-[#C7B299]">
           Price: <span className="font-medium">{price} Taka</span>
         </p>
-        <p className="text-sm text-gray-700">
+        <p className="text-sm text-[#C7B299]">
           Quantity: <span className="font-medium">{quantity}</span>
         </p>
       </div>
@@ -68,20 +68,20 @@ const CoffeeCard = ({ coffee, coffees, setCoffees }) => {
       <div className="flex sm:flex-col gap-2">
         <Link to={`/coffee/${_id}`}>
           {" "}
-          <button className="btn btn-sm bg-[#D2B48C] hover:bg-[#c3a678] text-white border-0 shadow-none">
+          <button className="btn btn-sm bg-[#3A3228] hover:bg-[#4A4033] text-[#E6D3A3] border-0 shadow-none">
             <IoEye size={18} />
           </button>
         </Link>
 
         <Link to={`/updateCoffee/${_id}`}>
-          <button className="btn btn-sm bg-[#3C393B] hover:bg-[#2f2c2d] text-white border-0 shadow-none">
+          <button className="btn btn-sm bg-[#5B7C99] hover:bg-[#4A6880] text-white border-0 shadow-none">
             <MdEdit size={18} />
           </button>
         </Link>
 
         <button
           onClick={() => handleDelete(_id)}
-          className="btn btn-sm bg-[#EA4744] hover:bg-[#d63d3a] text-white border-0 shadow-none"
+          className="btn btn-sm bg-[#8B3A2E] hover:bg-[#d63d3a] text-white border-0 shadow-none"
         >
           <MdDelete size={18} />
         </button>

@@ -12,6 +12,10 @@ import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import AuthProvider from "./context/AuthProvider";
 import Users from "./components/Users";
+import About from "./components/About";
+import Products from "./components/Products";
+import Testimonial from "./components/Testimonial";
+import InstagramGallery from "./components/InstagramGallery";
 
 const router = createBrowserRouter([
   {
@@ -24,8 +28,25 @@ const router = createBrowserRouter([
         Component: Home,
       },
       {
+        path: "about",
+        Component: About
+      },
+      {
+        path: "products",
+        loader: () => fetch("http://localhost:3000/coffees"),
+        Component: Products
+      },
+      {
         path: "addCoffee",
         Component: AddCoffee,
+      },
+      {
+        path: "testimonial",
+        Component: Testimonial,
+      },
+      {
+        path: "gallery",
+        Component: InstagramGallery,
       },
       {
         path: "coffee/:id",
